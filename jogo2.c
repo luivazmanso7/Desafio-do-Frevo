@@ -91,11 +91,23 @@ void printFila(FilaNode *head) {
 
 // Funções do jogo
 void inicializarPerguntas(FilaNode **head, FilaNode **tail) {
+    // Perguntas sobre o frevo e sua cultura
     enqueue(head, tail, "Qual é a cor tradicional da sombrinha de frevo?", 1);
     enqueue(head, tail, "Em que cidade fica o Paço do Frevo?", 1);
     enqueue(head, tail, "Qual instrumento é representativo no frevo?", 2);
     enqueue(head, tail, "Quantas cores tem o estandarte do frevo?", 2);
     enqueue(head, tail, "Quem é o patrono do frevo?", 3);
+
+    // Novas perguntas sobre o passo do frevo
+    enqueue(head, tail, "Quantos passos diferentes compõem a dança do frevo?", 3);
+    enqueue(head, tail, "Qual é o estilo de frevo mais rápido e acrobático?", 2);
+    enqueue(head, tail, "Qual é a principal característica dos passos de frevo?", 2);
+    enqueue(head, tail, "Em que ano o frevo foi declarado Patrimônio Imaterial da Humanidade pela UNESCO?", 3);
+    enqueue(head, tail, "Qual movimento com os pés é característico do passo de frevo?", 1);
+    enqueue(head, tail, "Qual elemento simbólico é carregado pelos dançarinos de frevo?", 1);
+    enqueue(head, tail, "O frevo é conhecido por representar que tipo de emoção?", 2);
+    enqueue(head, tail, "Quem são os dançarinos de frevo chamados durante o Carnaval?", 2);
+    enqueue(head, tail, "Qual é o movimento característico das sombrinhas durante a dança do frevo?", 3);
 }
 
 void mostrarPontuacao(int pontos1, int pontos2) {
