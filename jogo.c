@@ -2,19 +2,141 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Estrutura da pilha (símbolos coletados)
 typedef struct PilhaNode {
     char simbolo[50];
     struct PilhaNode *prox;
 } PilhaNode;
 
-// Estrutura da fila (perguntas)
 typedef struct FilaNode {
     char pergunta[100];
     struct FilaNode *prox;
 } FilaNode;
 
-// Funções para manipulação da pilha
+void inicializarPerguntas(FilaNode **head, FilaNode **tail);
+void iniciarJogo(PilhaNode **jogador1, PilhaNode **jogador2, FilaNode **headPerguntas, FilaNode **tailPerguntas);
+void jogarTurno(PilhaNode **jogador, FilaNode **headPerguntas, FilaNode **tailPerguntas);
+void mostrarSimbolos(PilhaNode *jogador);
+void ordenarSimbolos(PilhaNode *jogador);
+void exibirMenu();
+
+void push(PilhaNode **topo, char *simbolo);
+char* pop(PilhaNode **topo);
+int tamanhoPilha(PilhaNode *topo);
+void enqueue(FilaNode **head, FilaNode **tail, char *pergunta);
+char* dequeue(FilaNode **head, FilaNode **tail);
+
+int main() {
+    PilhaNode *jogador1 = NULL;
+    PilhaNode *jogador2 = NULL;
+    FilaNode *headPerguntas = NULL;
+    FilaNode *tailPerguntas = NULL;
+
+    int opcao;
+    do {
+        exibirMenu();
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                inicializarPerguntas(&headPerguntas, &tailPerguntas);
+                iniciarJogo(&jogador1, &jogador2, &headPerguntas, &tailPerguntas);
+                break;
+            case 2:
+                printf("Regras do jogo: Responda corretamente para coletar símbolos do Frevo!\n");
+                break;
+            case 3:
+                printf("Saindo do jogo...\n");
+                break;
+            default:
+                printf("Opção inválida! Tente novamente.\n");
+        }
+    } while (opcao != 3);
+
+    return 0;
+}
+
+void inicializarPerguntas(FilaNode **head, FilaNode **tail) {
+    enqueue(head, tail, "Qual é a cor tradicional da sombrinha de frevo?");
+    enqueue(head, tail, "Em que cidade fica o Paço do Frevo?");
+    enqueue(head, tail, "Qual instrumento é representativo no frevo?");
+    enqueue(head, tail, "Quantas cores tem o estandarte do frevo?");
+    enqueue(head, tail, "Quem é o patrono do frevo?");
+}
+
+void iniciarJogo(PilhaNode **jogador1, PilhaNode **jogador2, FilaNode **headPerguntas, FilaNode **tailPerguntas) {
+    int turno = 1;
+
+    while (*headPerguntas != NULL) {
+        printf("\nTurno do Jogador %d\n", turno);
+        if (turno == 1) {
+            jogarTurno(jogador1, headPerguntas, tailPerguntas);
+            if (tamanhoPilha(*jogador1) == 3) {
+                printf("Jogador 1 venceu!\n");
+                break;
+            }
+        } else {
+            jogarTurno(jogador2, headPerguntas, tailPerguntas);
+            if (tamanhoPilha(*jogador2) == 3) {
+                printf("Jogador 2 venceu!\n");
+                break;
+            }
+        }
+        turno = (turno == 1) ? 2 : 1;
+    }
+}
+
+void jogarTurno(PilhaNode **jogador, FilaNode **headPerguntas, FilaNode **tailPerguntas) {
+    char resposta[50];
+    char *pergunta = dequeue(headPerguntas, tailPerguntas);
+    printf("Pergunta: %s\n", pergunta);
+    printf("Digite a resposta: ");
+    scanf(" %[^\n]s", resposta);
+
+    if (strcmp(resposta, "correta") == 0) {
+        printf("Resposta correta! Símbolo coletado.\n");
+        push(jogador, "Símbolo Coletado");
+        mostrarSimbolos(*jogador);
+    } else {
+        printf("Resposta incorreta!\n");
+    }
+}
+
+void mostrarSimbolos(PilhaNode *jogador) {
+    printf("Símbolos coletados: ");
+    while (jogador != NULL) {
+        printf("%s -> ", jogador->simbolo);
+        jogador = jogador->prox;
+    }
+    printf("NULL\n");
+}
+
+void ordenarSimbolos(PilhaNode *jogador) {
+    // Algoritmo Bubble Sort para ordenar os símbolos (exemplo simplificado)
+    if (jogador == NULL) return;
+
+    PilhaNode *ptr1, *ptr2;
+    char temp[50];
+    for (ptr1 = jogador; ptr1 != NULL; ptr1 = ptr1->prox) {
+        for (ptr2 = ptr1->prox; ptr2 != NULL; ptr2 = ptr2->prox) {
+            if (strcmp(ptr1->simbolo, ptr2->simbolo) > 0) {
+                strcpy(temp, ptr1->simbolo);
+                strcpy(ptr1->simbolo, ptr2->simbolo);
+                strcpy(ptr2->simbolo, temp);
+            }
+        }
+    }
+}
+
+void exibirMenu() {
+    printf("\n--- Menu ---\n");
+    printf("1. Iniciar Jogo\n");
+    printf("2. Exibir Regras\n");
+    printf("3. Sair\n");
+    printf("Escolha uma opção: ");
+}
+
+// Funções de pilha e fila
+
 void push(PilhaNode **topo, char *simbolo) {
     PilhaNode *novo = (PilhaNode *)malloc(sizeof(PilhaNode));
     if (novo != NULL) {
@@ -44,16 +166,6 @@ int tamanhoPilha(PilhaNode *topo) {
     return cont;
 }
 
-void printPilha(PilhaNode *topo) {
-    printf("Símbolos coletados: ");
-    while (topo != NULL) {
-        printf("%s -> ", topo->simbolo);
-        topo = topo->prox;
-    }
-    printf("NULL\n");
-}
-
-// Funções para manipulação da fila
 void enqueue(FilaNode **head, FilaNode **tail, char *pergunta) {
     FilaNode *novo = (FilaNode *)malloc(sizeof(FilaNode));
     if (novo != NULL) {
@@ -81,67 +193,4 @@ char* dequeue(FilaNode **head, FilaNode **tail) {
         return pergunta;
     }
     return NULL;
-}
-
-void printFila(FilaNode *head) {
-    printf("Perguntas na fila: ");
-    while (head != NULL) {
-        printf("\"%s\" -> ", head->pergunta);
-        head = head->prox;
-    }
-    printf("NULL\n");
-}
-
-// Função principal do jogo
-int main() {
-    PilhaNode *jogador1 = NULL;
-    PilhaNode *jogador2 = NULL;
-    FilaNode *headPerguntas = NULL;
-    FilaNode *tailPerguntas = NULL;
-
-    // Adicionando perguntas à fila
-    enqueue(&headPerguntas, &tailPerguntas, "Qual é a cor tradicional da sombrinha de frevo?");
-    enqueue(&headPerguntas, &tailPerguntas, "Em que cidade fica o Paço do Frevo?");
-    enqueue(&headPerguntas, &tailPerguntas, "Qual instrumento é representativo no frevo?");
-    enqueue(&headPerguntas, &tailPerguntas, "Quantas cores tem o estandarte do frevo?");
-    enqueue(&headPerguntas, &tailPerguntas, "Quem é o patrono do frevo?");
-
-    int turno = 1; // 1 para jogador 1, 2 para jogador 2
-    char resposta[50];
-
-    // Loop principal do jogo
-    while (headPerguntas != NULL) {
-        printf("\nTurno do Jogador %d\n", turno);
-        char *pergunta = dequeue(&headPerguntas, &tailPerguntas);
-        printf("Pergunta: %s\n", pergunta);
-        printf("Digite a resposta: ");
-        scanf(" %[^\n]s", resposta); // Lê a resposta do usuário
-
-        // Lógica de verificação de resposta (simplificada para exemplo)
-        if (strcmp(resposta, "correta") == 0) {
-            printf("Resposta correta!\n");
-            if (turno == 1) {
-                push(&jogador1, "Símbolo Coletado");
-                printPilha(jogador1);
-                if (tamanhoPilha(jogador1) == 3) {
-                    printf("Jogador 1 venceu!\n");
-                    break;
-                }
-            } else {
-                push(&jogador2, "Símbolo Coletado");
-                printPilha(jogador2);
-                if (tamanhoPilha(jogador2) == 3) {
-                    printf("Jogador 2 venceu!\n");
-                    break;
-                }
-            }
-        } else {
-            printf("Resposta incorreta!\n");
-        }
-
-        // Alterna o turno
-        turno = (turno == 1) ? 2 : 1;
-    }
-
-    return 0;
 }
