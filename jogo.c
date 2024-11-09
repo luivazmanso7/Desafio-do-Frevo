@@ -88,16 +88,21 @@ void iniciarJogo(PilhaNode **jogador1, PilhaNode **jogador2, FilaNode **headPerg
 void jogarTurno(PilhaNode **jogador, FilaNode **headPerguntas, FilaNode **tailPerguntas) {
     char resposta[50];
     char *pergunta = dequeue(headPerguntas, tailPerguntas);
-    printf("Pergunta: %s\n", pergunta);
-    printf("Digite a resposta: ");
-    scanf(" %[^\n]s", resposta);
+    if (pergunta != NULL) {
+        printf("Pergunta: %s\n", pergunta);
+        printf("Digite a resposta: ");
+        scanf(" %[^\n]s", resposta);
 
-    if (strcmp(resposta, "correta") == 0) {
-        printf("Resposta correta! Símbolo coletado.\n");
-        push(jogador, "Símbolo Coletado");
-        mostrarSimbolos(*jogador);
+        if (strcmp(resposta, "correta") == 0) {
+            printf("Resposta correta! Símbolo coletado.\n");
+            push(jogador, "Símbolo Coletado");
+            mostrarSimbolos(*jogador);
+        } else {
+            printf("Resposta incorreta!\n");
+        }
+        free(pergunta); // Libera a memória alocada para a pergunta
     } else {
-        printf("Resposta incorreta!\n");
+        printf("Erro ao obter a pergunta.\n");
     }
 }
 
@@ -111,7 +116,6 @@ void mostrarSimbolos(PilhaNode *jogador) {
 }
 
 void ordenarSimbolos(PilhaNode *jogador) {
-    // Algoritmo Bubble Sort para ordenar os símbolos (exemplo simplificado)
     if (jogador == NULL) return;
 
     PilhaNode *ptr1, *ptr2;
@@ -184,7 +188,8 @@ void enqueue(FilaNode **head, FilaNode **tail, char *pergunta) {
 char* dequeue(FilaNode **head, FilaNode **tail) {
     if (*head != NULL) {
         FilaNode *aux = *head;
-        char *pergunta = aux->pergunta;
+        char *pergunta = (char *)malloc(strlen(aux->pergunta) + 1);
+        strcpy(pergunta, aux->pergunta);
         *head = aux->prox;
         if (*head == NULL) {
             *tail = NULL;
