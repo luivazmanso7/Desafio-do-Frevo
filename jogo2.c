@@ -8,9 +8,10 @@ typedef struct PilhaNode {
     struct PilhaNode *prox;
 } PilhaNode;
 
-// Estrutura da fila (perguntas)
+// Estrutura da fila (perguntas e respostas)
 typedef struct FilaNode {
     char pergunta[100];
+    char respostaCorreta[50];
     int dificuldade; // 1 para fácil, 2 para médio, 3 para difícil
     struct FilaNode *prox;
 } FilaNode;
@@ -56,13 +57,14 @@ void printPilha(PilhaNode *topo) {
 }
 
 // Funções de manipulação da fila
-void enqueue(FilaNode **head, FilaNode **tail, const char *pergunta, int dificuldade) {
+void enqueue(FilaNode **head, FilaNode **tail, const char *pergunta, const char *respostaCorreta, int dificuldade) {
     FilaNode *novo = (FilaNode *)malloc(sizeof(FilaNode));
     if (novo == NULL) {
         fprintf(stderr, "Erro de alocação de memória para a fila.\n");
         exit(EXIT_FAILURE);
     }
     strcpy(novo->pergunta, pergunta);
+    strcpy(novo->respostaCorreta, respostaCorreta);
     novo->dificuldade = dificuldade;
     novo->prox = NULL;
 
@@ -92,22 +94,18 @@ void printFila(FilaNode *head) {
 // Funções do jogo
 void inicializarPerguntas(FilaNode **head, FilaNode **tail) {
     // Perguntas sobre o frevo e sua cultura
-    enqueue(head, tail, "Qual é a cor tradicional da sombrinha de frevo?", 1);
-    enqueue(head, tail, "Em que cidade fica o Paço do Frevo?", 1);
-    enqueue(head, tail, "Qual instrumento é representativo no frevo?", 2);
-    enqueue(head, tail, "Quantas cores tem o estandarte do frevo?", 2);
-    enqueue(head, tail, "Quem é o patrono do frevo?", 3);
+    enqueue(head, tail, "Qual é a cor tradicional da sombrinha de frevo?", "colorida", 1);
+    enqueue(head, tail, "Em que cidade fica o Paço do Frevo?", "Recife", 1);
+    enqueue(head, tail, "Qual instrumento é representativo no frevo?", "trombone", 2);
+    enqueue(head, tail, "Quantas cores tem o estandarte do frevo?", "quatro", 2);
+    enqueue(head, tail, "Quem é o patrono do frevo?", "Nelson Ferreira", 3);
 
     // Novas perguntas sobre o passo do frevo
-    enqueue(head, tail, "Quantos passos diferentes compõem a dança do frevo?", 3);
-    enqueue(head, tail, "Qual é o estilo de frevo mais rápido e acrobático?", 2);
-    enqueue(head, tail, "Qual é a principal característica dos passos de frevo?", 2);
-    enqueue(head, tail, "Em que ano o frevo foi declarado Patrimônio Imaterial da Humanidade pela UNESCO?", 3);
-    enqueue(head, tail, "Qual movimento com os pés é característico do passo de frevo?", 1);
-    enqueue(head, tail, "Qual elemento simbólico é carregado pelos dançarinos de frevo?", 1);
-    enqueue(head, tail, "O frevo é conhecido por representar que tipo de emoção?", 2);
-    enqueue(head, tail, "Quem são os dançarinos de frevo chamados durante o Carnaval?", 2);
-    enqueue(head, tail, "Qual é o movimento característico das sombrinhas durante a dança do frevo?", 3);
+    enqueue(head, tail, "Quantos passos diferentes compõem a dança do frevo?", "doze", 3);
+    enqueue(head, tail, "Qual é o estilo de frevo mais rápido e acrobático?", "frevo-de-rua", 2);
+    enqueue(head, tail, "Qual é a principal característica dos passos de frevo?", "movimento rápido", 2);
+    enqueue(head, tail, "Em que ano o frevo foi declarado Patrimônio Imaterial da Humanidade pela UNESCO?", "2012", 3);
+    enqueue(head, tail, "Qual movimento com os pés é característico do passo de frevo?", "rasteira", 1);
 }
 
 void mostrarPontuacao(int pontos1, int pontos2) {
@@ -116,13 +114,13 @@ void mostrarPontuacao(int pontos1, int pontos2) {
     printf("Jogador 2: %d pontos\n", pontos2);
 }
 
-void turnoJogador(int jogador, PilhaNode **pilhaJogador, int *pontuacao, int dificuldade) {
+void turnoJogador(int jogador, PilhaNode **pilhaJogador, int *pontuacao, const char *respostaCorreta, int dificuldade) {
     char resposta[50];
     int pontosGanhos = dificuldade;  // Mais pontos para perguntas mais difíceis
     printf("Digite a resposta: ");
     scanf(" %[^\n]s", resposta);
 
-    if (strcmp(resposta, "correta") == 0) {
+    if (strcmp(resposta, respostaCorreta) == 0) {
         printf("Resposta correta!\n");
         push(pilhaJogador, "Símbolo Coletado");
         printPilha(*pilhaJogador);
@@ -174,10 +172,10 @@ int main() {
             printf("Pergunta: %s (Dificuldade: %d)\n", perguntaNode->pergunta, perguntaNode->dificuldade);
 
             if (turno == 1) {
-                turnoJogador(1, &jogador1, &pontuacao1, perguntaNode->dificuldade);
+                turnoJogador(1, &jogador1, &pontuacao1, perguntaNode->respostaCorreta, perguntaNode->dificuldade);
                 if (verificarVitoria(jogador1, 1)) break;
             } else {
-                turnoJogador(2, &jogador2, &pontuacao2, perguntaNode->dificuldade);
+                turnoJogador(2, &jogador2, &pontuacao2, perguntaNode->respostaCorreta, perguntaNode->dificuldade);
                 if (verificarVitoria(jogador2, 2)) break;
             }
         }
