@@ -248,6 +248,8 @@ int selecionarQuestao(Questao questoes[], int numQuestoes, int perguntasUsadas[]
     return indiceQuestao;
 }
 
+
+
 // Inicia o jogo
 void iniciar_jogo() {
     Sala *topoSala = NULL;
@@ -255,6 +257,7 @@ void iniciar_jogo() {
     char nomeJogador[50];
     int pontuacao = 0;
     int numeroSalaAtual = 0;
+    int vidas = 3;
     indiceSimboloAtual = 0;
     indiceSalaAtual = 0;
 
@@ -601,7 +604,9 @@ void iniciar_jogo() {
         if (comparar_respostas(respostaJogador, perguntaAtual->respostaCorreta)) {
             printf("Resposta correta!\n");
             printf("Curiosidade: %s\n", perguntaAtual->curiosidade);
+            printf("Vidas restantes: %d\n", vidas);
             pontuacao += 10;
+            
 
             // Coleta um símbolo do frevo e exibe ao jogador
             if (indiceSimboloAtual < MAX_SIMBOLOS) {
@@ -624,14 +629,20 @@ void iniciar_jogo() {
 
         } else {
             printf("Resposta incorreta.\n");
+            vidas--;
             // Retrocede uma sala
             desempilharSala(&topoSala);
             if (topoSala == NULL) {
                 printf("Você saiu do labirinto. Fim de jogo.\n");
                 break;
+            }else if(vidas == 0){
+                printf("Suas vidas acabaram. Fim de jogo.\n");
+                break;
             }
+            printf("Vidas restantes: %d\n", vidas);
             indiceSalaAtual--; // Decrementa o índice da sala
             numeroSalaAtual--; // Decrementa o número da sala atual
+            
         }
     }
 
