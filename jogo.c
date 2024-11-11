@@ -205,7 +205,7 @@ void exibir_ranking() {
 // Exibe o menu principal e retorna a opção escolhida
 int mostrar_menu() {
     int opcao;
-    printf("\n--- Labirinto do Frevo ---\n");
+    printf("\n--- Desafio do Frevo ---\n");
     printf("1. Iniciar Jogo\n");
     printf("2. Ver Ranking\n");
     printf("3. Sair\n");
