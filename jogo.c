@@ -601,7 +601,7 @@ void iniciar_jogo() {
 
             // Verifica se o jogador chegou à última sala
             if (indiceSalaAtual >= MAX_SALAS) {
-                printf("\nParabéns, %s! Você chegou ao final do labirinto!\n", nomeJogador);
+                printf("\nParabéns, %s! Você chegou ao final do desafio!\n", nomeJogador);
                 printf("Parabéns, %s! Você recebeu o título de Aprendiz do Frevo!\n", nomeJogador);
                 break;
             }

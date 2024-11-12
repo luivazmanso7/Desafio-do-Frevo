@@ -2,26 +2,26 @@
 triple:          'arm64-apple-darwin'
 binary-path:     '/Users/luimanso/Desktop/Desafio-do-Frevo/output/jogo'
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _empilharSala, symObjAddr: 0x0, symBinAddr: 0x1000027F8, symSize: 0x168 }
-  - { offsetInCU: 0x3F, offset: 0x3F, size: 0x8, addend: 0x0, symName: _totalJogadores, symObjAddr: 0xBAF0, symBinAddr: 0x100010080, symSize: 0x0 }
-  - { offsetInCU: 0x69, offset: 0x69, size: 0x8, addend: 0x0, symName: _simbolosFrevo, symObjAddr: 0x1840, symBinAddr: 0x100010000, symSize: 0x0 }
-  - { offsetInCU: 0x8F, offset: 0x8F, size: 0x8, addend: 0x0, symName: _indiceSimboloAtual, symObjAddr: 0xBAF4, symBinAddr: 0x100010084, symSize: 0x0 }
-  - { offsetInCU: 0xA4, offset: 0xA4, size: 0x8, addend: 0x0, symName: _nomesDasSalas, symObjAddr: 0x1880, symBinAddr: 0x100010040, symSize: 0x0 }
-  - { offsetInCU: 0xB9, offset: 0xB9, size: 0x8, addend: 0x0, symName: _indiceSalaAtual, symObjAddr: 0xBAF8, symBinAddr: 0x100010088, symSize: 0x0 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _empilharSala, symObjAddr: 0x0, symBinAddr: 0x1000027C4, symSize: 0x168 }
+  - { offsetInCU: 0x3F, offset: 0x3F, size: 0x8, addend: 0x0, symName: _totalJogadores, symObjAddr: 0xBB48, symBinAddr: 0x100010080, symSize: 0x0 }
+  - { offsetInCU: 0x69, offset: 0x69, size: 0x8, addend: 0x0, symName: _simbolosFrevo, symObjAddr: 0x1878, symBinAddr: 0x100010000, symSize: 0x0 }
+  - { offsetInCU: 0x8F, offset: 0x8F, size: 0x8, addend: 0x0, symName: _indiceSimboloAtual, symObjAddr: 0xBB4C, symBinAddr: 0x100010084, symSize: 0x0 }
+  - { offsetInCU: 0xA4, offset: 0xA4, size: 0x8, addend: 0x0, symName: _nomesDasSalas, symObjAddr: 0x18B8, symBinAddr: 0x100010040, symSize: 0x0 }
+  - { offsetInCU: 0xB9, offset: 0xB9, size: 0x8, addend: 0x0, symName: _indiceSalaAtual, symObjAddr: 0xBB50, symBinAddr: 0x100010088, symSize: 0x0 }
   - { offsetInCU: 0xDA, offset: 0xDA, size: 0x8, addend: 0x0, symName: _ranking, symBinAddr: 0x10001008C, symSize: 0x0 }
-  - { offsetInCU: 0x25A, offset: 0x25A, size: 0x8, addend: 0x0, symName: _empilharSala, symObjAddr: 0x0, symBinAddr: 0x1000027F8, symSize: 0x168 }
-  - { offsetInCU: 0x2D2, offset: 0x2D2, size: 0x8, addend: 0x0, symName: _desempilharSala, symObjAddr: 0x168, symBinAddr: 0x100002960, symSize: 0x44 }
-  - { offsetInCU: 0x2F6, offset: 0x2F6, size: 0x8, addend: 0x0, symName: _liberarSalas, symObjAddr: 0x1AC, symBinAddr: 0x1000029A4, symSize: 0xA0 }
-  - { offsetInCU: 0x336, offset: 0x336, size: 0x8, addend: 0x0, symName: _enfileirarEvento, symObjAddr: 0x24C, symBinAddr: 0x100002A44, symSize: 0xDC }
-  - { offsetInCU: 0x384, offset: 0x384, size: 0x8, addend: 0x0, symName: _desenfileirarEvento, symObjAddr: 0x328, symBinAddr: 0x100002B20, symSize: 0x60 }
-  - { offsetInCU: 0x3BA, offset: 0x3BA, size: 0x8, addend: 0x0, symName: _liberarFilaEventos, symObjAddr: 0x388, symBinAddr: 0x100002B80, symSize: 0x64 }
-  - { offsetInCU: 0x3FA, offset: 0x3FA, size: 0x8, addend: 0x0, symName: _adicionar_pontuacao, symObjAddr: 0x3EC, symBinAddr: 0x100002BE4, symSize: 0xAC }
-  - { offsetInCU: 0x42C, offset: 0x42C, size: 0x8, addend: 0x0, symName: _ordenar_pontuacoes, symObjAddr: 0x498, symBinAddr: 0x100002C90, symSize: 0x198 }
-  - { offsetInCU: 0x496, offset: 0x496, size: 0x8, addend: 0x0, symName: _exibir_ranking, symObjAddr: 0x630, symBinAddr: 0x100002E28, symSize: 0xB8 }
-  - { offsetInCU: 0x4C8, offset: 0x4C8, size: 0x8, addend: 0x0, symName: _mostrar_menu, symObjAddr: 0x6E8, symBinAddr: 0x100002EE0, symSize: 0x70 }
-  - { offsetInCU: 0x4F0, offset: 0x4F0, size: 0x8, addend: 0x0, symName: _comparar_respostas, symObjAddr: 0x758, symBinAddr: 0x100002F50, symSize: 0x54 }
-  - { offsetInCU: 0x542, offset: 0x542, size: 0x8, addend: 0x0, symName: _selecionarQuestao, symObjAddr: 0x7AC, symBinAddr: 0x100002FA4, symSize: 0x110 }
-  - { offsetInCU: 0x5CC, offset: 0x5CC, size: 0x8, addend: 0x0, symName: _iniciar_jogo, symObjAddr: 0x8BC, symBinAddr: 0x1000030B4, symSize: 0x8A4 }
-  - { offsetInCU: 0x80C, offset: 0x80C, size: 0x8, addend: 0x0, symName: _finalizar_jogo, symObjAddr: 0x1160, symBinAddr: 0x100003958, symSize: 0x20 }
-  - { offsetInCU: 0x822, offset: 0x822, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x1180, symBinAddr: 0x100003978, symSize: 0xBC }
+  - { offsetInCU: 0x25A, offset: 0x25A, size: 0x8, addend: 0x0, symName: _empilharSala, symObjAddr: 0x0, symBinAddr: 0x1000027C4, symSize: 0x168 }
+  - { offsetInCU: 0x2D2, offset: 0x2D2, size: 0x8, addend: 0x0, symName: _desempilharSala, symObjAddr: 0x168, symBinAddr: 0x10000292C, symSize: 0x44 }
+  - { offsetInCU: 0x2F6, offset: 0x2F6, size: 0x8, addend: 0x0, symName: _liberarSalas, symObjAddr: 0x1AC, symBinAddr: 0x100002970, symSize: 0xA0 }
+  - { offsetInCU: 0x336, offset: 0x336, size: 0x8, addend: 0x0, symName: _enfileirarEvento, symObjAddr: 0x24C, symBinAddr: 0x100002A10, symSize: 0xDC }
+  - { offsetInCU: 0x384, offset: 0x384, size: 0x8, addend: 0x0, symName: _desenfileirarEvento, symObjAddr: 0x328, symBinAddr: 0x100002AEC, symSize: 0x60 }
+  - { offsetInCU: 0x3BA, offset: 0x3BA, size: 0x8, addend: 0x0, symName: _liberarFilaEventos, symObjAddr: 0x388, symBinAddr: 0x100002B4C, symSize: 0x64 }
+  - { offsetInCU: 0x3FA, offset: 0x3FA, size: 0x8, addend: 0x0, symName: _adicionar_pontuacao, symObjAddr: 0x3EC, symBinAddr: 0x100002BB0, symSize: 0xAC }
+  - { offsetInCU: 0x42C, offset: 0x42C, size: 0x8, addend: 0x0, symName: _ordenar_pontuacoes, symObjAddr: 0x498, symBinAddr: 0x100002C5C, symSize: 0x198 }
+  - { offsetInCU: 0x496, offset: 0x496, size: 0x8, addend: 0x0, symName: _exibir_ranking, symObjAddr: 0x630, symBinAddr: 0x100002DF4, symSize: 0xB8 }
+  - { offsetInCU: 0x4C8, offset: 0x4C8, size: 0x8, addend: 0x0, symName: _mostrar_menu, symObjAddr: 0x6E8, symBinAddr: 0x100002EAC, symSize: 0x70 }
+  - { offsetInCU: 0x4F0, offset: 0x4F0, size: 0x8, addend: 0x0, symName: _comparar_respostas, symObjAddr: 0x758, symBinAddr: 0x100002F1C, symSize: 0x54 }
+  - { offsetInCU: 0x542, offset: 0x542, size: 0x8, addend: 0x0, symName: _selecionarQuestao, symObjAddr: 0x7AC, symBinAddr: 0x100002F70, symSize: 0x110 }
+  - { offsetInCU: 0x5CC, offset: 0x5CC, size: 0x8, addend: 0x0, symName: _iniciar_jogo, symObjAddr: 0x8BC, symBinAddr: 0x100003080, symSize: 0x8A4 }
+  - { offsetInCU: 0x809, offset: 0x809, size: 0x8, addend: 0x0, symName: _finalizar_jogo, symObjAddr: 0x1160, symBinAddr: 0x100003924, symSize: 0x20 }
+  - { offsetInCU: 0x81F, offset: 0x81F, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x1180, symBinAddr: 0x100003944, symSize: 0xBC }
 ...
