@@ -20,13 +20,13 @@ typedef struct {
     char opcaoD[150];
 } Questao;
 
-// Estrutura da pilha de salas do labirinto
+// Estrutura da pilha de salas 
 typedef struct Sala {
     int numeroSala;
     char descricao[200];
     Questao *questoes;
     int numQuestoes;
-    int *perguntasUsadas; // Array para controlar perguntas já usadas na sala
+    int *perguntasUsadas; 
     struct Sala *prox;
 } Sala;
 
@@ -45,7 +45,7 @@ typedef struct {
 Pontuacao ranking[MAX_JOGADORES];
 int totalJogadores = 0;
 
-// Lista de símbolos diferentes
+// Lista de símbolos
 char *simbolosFrevo[MAX_SIMBOLOS] = {
     "Sombrinha Colorida",
     "Passo de Frevo",
@@ -57,29 +57,27 @@ char *simbolosFrevo[MAX_SIMBOLOS] = {
     "Chapéu de Palha"
 };
 
-int indiceSimboloAtual = 0; // Para controlar qual símbolo será dado ao jogador
+int indiceSimboloAtual = 0; 
 
-// Lista de nomes das salas
+
 char *nomesDasSalas[MAX_SALAS] = {
-    "Entrada do Paço do Frevo",            // Sala 1 (Fácil)
-    "Galeria das Sombrinhas",              // Sala 2 (Fácil)
-    "Salão dos Passistas",                 // Sala 3 (Médio)
-    "Hall dos Mestres do Frevo",           // Sala 4 (Médio)
-    "Terraço das Orquestras",              // Sala 5 (Difícil)
-    "Exposição dos Estandartes",           // Sala 6 (Difícil)
-    "Camarote das Máscaras",               // Sala 7 (Muito Difícil)
-    "Saída para o Carnaval de Recife"      // Sala 8 (Muito Difícil)
+    "Entrada do Paço do Frevo",            // Sala 1 Fácil
+    "Galeria das Sombrinhas",              // Sala 2 Fácil
+    "Salão dos Passistas",                 // Sala 3 Médio
+    "Hall dos Mestres do Frevo",           // Sala 4 Médio
+    "Terraço das Orquestras",              // Sala 5 Difícil
+    "Exposição dos Estandartes",           // Sala 6 Difícil
+    "Camarote das Máscaras",               // Sala 7 Muito Difícil
+    "Saída para o Carnaval de Recife"      // Sala 8 Muito Difícil
 };
 
-int indiceSalaAtual = 0; // Para controlar qual sala será apresentada ao jogador
+int indiceSalaAtual = 0; 
 
-// Funções de manipulação da pilha de salas do labirinto
 
 // Empilha uma sala no labirinto
 void empilharSala(Sala **topo, int numeroSala, const char *descricao, Questao *questoes, int numQuestoes, Sala **salasPorNumero) {
     Sala *novaSala;
     if (salasPorNumero[numeroSala - 1] == NULL) {
-        // Cria nova Sala
         novaSala = (Sala *)malloc(sizeof(Sala));
         if (novaSala == NULL) {
             fprintf(stderr, "Erro de alocação de memória para a sala.\n");
@@ -90,8 +88,6 @@ void empilharSala(Sala **topo, int numeroSala, const char *descricao, Questao *q
         novaSala->questoes = questoes;
         novaSala->numQuestoes = numQuestoes;
         novaSala->prox = NULL;
-
-        // Inicializa o array perguntasUsadas
         novaSala->perguntasUsadas = (int *)calloc(numQuestoes, sizeof(int));
         if (novaSala->perguntasUsadas == NULL) {
             fprintf(stderr, "Erro de alocação de memória para o array de perguntas usadas da sala.\n");
@@ -104,7 +100,6 @@ void empilharSala(Sala **topo, int numeroSala, const char *descricao, Questao *q
         novaSala = salasPorNumero[numeroSala - 1];
     }
 
-    // Empilha a sala
     novaSala->prox = *topo;
     *topo = novaSala;
 }
@@ -126,7 +121,7 @@ void liberarSalas(Sala **salasPorNumero) {
     }
 }
 
-// Funções de manipulação da fila de eventos
+
 
 // Enfileira um evento
 void enfileirarEvento(Evento **head, Evento **tail, const char *descricao) {
@@ -188,7 +183,7 @@ void ordenar_pontuacoes() {
 
 // Exibe o ranking dos jogadores
 void exibir_ranking() {
-    ordenar_pontuacoes(); // Utiliza Bubble Sort para ordenar o ranking
+    ordenar_pontuacoes(); 
     printf("\n--- Ranking dos Jogadores ---\n");
     for (int i = 0; i < totalJogadores; i++) {
         printf("%d. %s - %d pontos\n", i + 1, ranking[i].nomeJogador, ranking[i].pontuacao);
@@ -241,7 +236,7 @@ int selecionarQuestao(Questao questoes[], int numQuestoes, int perguntasUsadas[]
     return indiceQuestao;
 }
 
-// Inicia o jogo
+
 void iniciar_jogo() {
     Sala *topoSala = NULL;
     Evento *headEvento = NULL, *tailEvento = NULL;
@@ -252,11 +247,9 @@ void iniciar_jogo() {
     indiceSimboloAtual = 0;
     indiceSalaAtual = 0;
 
-    // Array para armazenar símbolos coletados
     char *simbolosColetados[MAX_SIMBOLOS];
     int totalSimbolosColetados = 0;
 
-    // Array para armazenar as salas por número
     Sala *salasPorNumero[MAX_SALAS] = {NULL};
 
     printf("\nDigite o seu nome: ");
@@ -545,11 +538,9 @@ void iniciar_jogo() {
         numQuestoesSala8
     };
 
-    // Empilha a sala inicial
     empilharSala(&topoSala, ++numeroSalaAtual, nomesDasSalas[indiceSalaAtual], questoesPorSala[indiceSalaAtual], numQuestoesPorSala[indiceSalaAtual], salasPorNumero);
-    indiceSalaAtual++; // Incrementa para apontar para a próxima sala
+    indiceSalaAtual++; 
 
-    // Enfileira alguns eventos
     enfileirarEvento(&headEvento, &tailEvento, "Você encontrou um mestre que lhe ensinou um novo passo!");
     enfileirarEvento(&headEvento, &tailEvento, "Uma multidão animada o empurra para frente.");
     enfileirarEvento(&headEvento, &tailEvento, "Você parou para apreciar uma apresentação.");
@@ -563,11 +554,10 @@ void iniciar_jogo() {
         Evento *eventoAtual = desenfileirarEvento(&headEvento);
         if (eventoAtual != NULL) {
             printf("Evento: %s\n", eventoAtual->descricao);
-            // Lógica para lidar com o evento (pode ser expandida conforme necessário)
+            // Lógica para lidar com o evento 
             free(eventoAtual);
         }
 
-        // Seleciona uma pergunta da sala atual usando o perguntasUsadas da sala
         int indicePergunta = selecionarQuestao(topoSala->questoes, topoSala->numQuestoes, topoSala->perguntasUsadas);
 
         if (indicePergunta == -1) {
@@ -580,8 +570,8 @@ void iniciar_jogo() {
                 break;
             }
             empilharSala(&topoSala, ++numeroSalaAtual, nomesDasSalas[indiceSalaAtual], questoesPorSala[indiceSalaAtual], numQuestoesPorSala[indiceSalaAtual], salasPorNumero);
-            indiceSalaAtual++; // Incrementa para apontar para a próxima sala
-            continue; // Volta ao início do loop
+            indiceSalaAtual++; 
+            continue;
         }
 
         Questao *perguntaAtual = &topoSala->questoes[indicePergunta];
@@ -618,7 +608,7 @@ void iniciar_jogo() {
 
             // Avança para a próxima sala
             empilharSala(&topoSala, ++numeroSalaAtual, nomesDasSalas[indiceSalaAtual], questoesPorSala[indiceSalaAtual], numQuestoesPorSala[indiceSalaAtual], salasPorNumero);
-            indiceSalaAtual++; // Incrementa para apontar para a próxima sala
+            indiceSalaAtual++; 
 
         } else {
             printf("Resposta incorreta.\n");
@@ -633,20 +623,13 @@ void iniciar_jogo() {
                 break;
             }
             printf("Vidas restantes: %d\n", vidas);
-            indiceSalaAtual--; // Decrementa o índice da sala
-            numeroSalaAtual--; // Decrementa o número da sala atual
+            indiceSalaAtual--; 
+            numeroSalaAtual--; 
         }
     }
 
     printf("\nSua pontuação final foi: %d pontos.\n", pontuacao);
 
-    // Removido: Exibe o caminho percorrido
-    /*
-    // Exibe o caminho percorrido
-    exibirCaminhoPercorrido(topoSala);
-    */
-
-    // Exibe os símbolos coletados
     printf("\nSímbolos coletados:\n");
     if (totalSimbolosColetados > 0) {
         for (int i = 0; i < totalSimbolosColetados; i++) {
@@ -656,10 +639,9 @@ void iniciar_jogo() {
         printf("Nenhum símbolo foi coletado.\n");
     }
 
-    // Adiciona a pontuação ao ranking
     adicionar_pontuacao(nomeJogador, pontuacao);
 
-    // Libera memória
+   
     liberarSalas(salasPorNumero);
     liberarFilaEventos(&headEvento);
 }
